@@ -14,6 +14,31 @@ To achieve this, we will build an application that lets its runner and another p
 
 **Rationale**: As long as the person running the contract and the other person choose a value randomly between 1 and 6 without communicating with one another, the result will be random.
 
+
+
+**Sequence Diagram**
+
+Sequence diagram generated using https://sequencediagram.org/ and the following code:
+
+````
+title Random social contract example
+
+Alice->Contract: Start a random contract with Bob
+Alice<--Contract: Contract created, ID is 1234
+Bob->Contract: Show me ongoing random requests
+Bob<--Contract: You have one ongoing request 1234
+Alice->Contract: for random request 1234, I choose random number 3
+Bob->Contract: for random request 1234, I choose random number 1
+Alice->Contract: Show me result for random contract 1234
+Alice<--Contract: Result for random ID 1234 is 5
+Bob->Contract: Show me result for random contract 1234
+Bob<--Contract: Result for random ID 1234 is 5
+````
+
+![Sequence Diagram](./pictures/sequence-diagram-example.png)
+
+
+
 **Structure of the App. [Draft, described as an API]**
 
 [We may use openapi format for a standard definition]

@@ -73,3 +73,212 @@ To achieve this, we will build an application that lets its runner and another p
 
 
 
+**Example**
+
+
+
+- First message sent by initiator of random request
+
+[Creator] 
+
+Method and request url:
+
+````http
+POST https:/myrandomserver.com/new
+````
+
+HEADER: 
+
+````http
+some-custom-value: wallet ID1 (plus some authorization !?)
+````
+
+BODY
+
+````json
+{
+		"participants": ["wallet ID2"]
+} 
+````
+
+   **response:**
+
+HTTP Code
+
+````http
+200 OK
+````
+
+​	HEADER
+
+````http
+created: https:/myrandomserver.com/processes/893423
+````
+
+​	BODY
+
+````json
+{ 
+	 "random-process-id": "893423"
+}
+````
+
+- Second message sent by invitee of random request
+
+[Invitee] 
+
+````http
+GET https:/myrandomserver.com/processes
+````
+
+
+
+​	HEADER
+
+````http
+some-custom-value: wallet ID2
+````
+
+
+
+   **response:**
+
+HTTP Code
+
+````http
+200 OK
+````
+
+​	HEADER
+
+````http
+created: https:/myrandomserver.com/processes/893423
+````
+
+​	BODY
+
+````json
+[
+	{ 
+		"random-process-id": "893423"
+    "status": ""
+    xxx.
+	} 
+]
+````
+
+​			
+
+
+
+
+
+- Third and fourth message sent by creator and invitee of random request. Both follow the same format
+
+[Invitee] 
+
+````http
+PATCH https:/myrandomserver.com/processes/893423
+````
+
+
+
+​	HEADER
+
+````http
+some-custom-value: wallet ID2
+````
+
+BODY
+
+````json
+{ 
+	 "random-value": 3
+}
+````
+
+- 
+
+   **response:**
+
+HTTP Code
+
+````http
+200 OK	
+````
+
+[Requeter] 
+
+````http
+PATCH https:/myrandomserver.com/processes/893423
+````
+
+
+
+​	HEADER
+
+````http
+some-custom-value: wallet ID1
+````
+
+BODY
+
+````json
+{ 
+	 "random-value": 1
+}
+````
+
+- 
+
+   **response:**
+
+HTTP Code
+
+````http
+200 OK	
+````
+
+
+
+- The result can be found for both parties in subsequent messages
+
+
+
+[Invitee or Requester] 
+
+````http
+GET https:/myrandomserver.com/processes/893423
+````
+
+
+
+​	HEADER
+
+````http
+some-custom-value: wallet ID1-2
+````
+
+
+
+   **response:**
+
+HTTP Code
+
+````http
+200 OK
+````
+
+​	BODY
+
+````json
+
+	{ 
+		"random-process-id": "893423"
+    "status": ""
+    "generated-value": 5
+	} 
+
+````
+
+​		
